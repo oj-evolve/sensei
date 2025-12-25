@@ -19,7 +19,7 @@
             <a class="nav-link" onclick="showPage('self-defense')">Self Defense</a>
             <a class="nav-link" onclick="showPage('marketplace')">Market Place</a>
             <a class="nav-link" onclick="showPage('blog')">Blog</a>
-
+            
             <!-- Profile Dropdown or Auth Buttons -->
             <div id="authSection">
                 <div class="auth-buttons">
@@ -60,12 +60,44 @@
     <main class="main-content">
         <!-- HOME PAGE -->
         <div class="page active" id="home">
-            <div class="hero-section">
-                <h1>🥋 Transform Your Body & Mind</h1>
-                <p>Join thousands of members on their fitness journey with expert-led classes and personalized programs
-                </p>
-                <button class="btn btn-primary" onclick="showPage('payment-plans')"
-                    style="max-width: 300px; margin: 0 auto; display: block;">Get Started Today</button>
+            <!-- Hero Carousel -->
+            <div class="hero-carousel">
+                <div class="carousel-slide active">
+                    <h1>🥋 Transform Your Body & Mind</h1>
+                    <p>Join thousands of members on their fitness journey with expert-led classes and personalized programs</p>
+                    <button class="btn btn-primary" onclick="showPage('payment-plans')" style="max-width: 300px;">Get Started Today</button>
+                </div>
+                <div class="carousel-slide">
+                    <h1>💪 Health Tip: Stay Hydrated</h1>
+                    <p>Drinking water before, during, and after exercise helps prevent dehydration and improves performance. Aim for at least 8 glasses daily!</p>
+                    <button class="btn btn-primary" onclick="showPage('daily-exercise')" style="max-width: 300px;">Start Exercising</button>
+                </div>
+                <div class="carousel-slide">
+                    <h1>🧘 Benefit: Reduce Stress</h1>
+                    <p>Regular exercise releases endorphins, natural mood lifters that help reduce stress and anxiety. Just 30 minutes daily can make a difference!</p>
+                    <button class="btn btn-primary" onclick="showPage('self-defense')" style="max-width: 300px;">Learn Self-Defense</button>
+                </div>
+                <div class="carousel-slide">
+                    <h1>🔥 Benefit: Boost Metabolism</h1>
+                    <p>Strength training increases muscle mass, which burns more calories at rest. Build a stronger, more efficient body!</p>
+                    <button class="btn btn-primary" onclick="showPage('my-programme')" style="max-width: 300px;">Track Progress</button>
+                </div>
+                <div class="carousel-slide">
+                    <h1>❤️ Health Tip: Consistency is Key</h1>
+                    <p>Small, consistent actions lead to big results. Commit to just 15 minutes daily and watch your fitness transform over time!</p>
+                    <button class="btn btn-primary" onclick="showPage('blog')" style="max-width: 300px;">Read More Tips</button>
+                </div>
+
+                <button class="carousel-nav prev" onclick="changeSlide(-1)">‹</button>
+                <button class="carousel-nav next" onclick="changeSlide(1)">›</button>
+
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" onclick="goToSlide(0)"></div>
+                    <div class="carousel-indicator" onclick="goToSlide(1)"></div>
+                    <div class="carousel-indicator" onclick="goToSlide(2)"></div>
+                    <div class="carousel-indicator" onclick="goToSlide(3)"></div>
+                    <div class="carousel-indicator" onclick="goToSlide(4)"></div>
+                </div>
             </div>
 
             <!-- Director's Introduction -->
@@ -81,27 +113,16 @@
                 </div>
                 <div class="director-content">
                     <h3>Our Story</h3>
-                    <p>Welcome to Sensei Fitness Dojo, where tradition meets innovation in the world of fitness and
-                        martial arts. Founded in 2020, our journey began with a simple vision: to create a welcoming
-                        space where people of all ages and fitness levels could discover the transformative power of
-                        disciplined training.</p>
-
+                    <p>Welcome to Sensei Fitness Dojo, where tradition meets innovation in the world of fitness and martial arts. Founded in 2020, our journey began with a simple vision: to create a welcoming space where people of all ages and fitness levels could discover the transformative power of disciplined training.</p>
+                    
                     <h3>Our Mission</h3>
-                    <p>At Sensei Fitness Dojo, we believe that true fitness goes beyond physical strength. It's about
-                        building mental resilience, fostering discipline, and creating a supportive community. Our
-                        expert coaches bring years of experience in martial arts, fitness training, and holistic
-                        wellness to help you achieve your goals.</p>
-
+                    <p>At Sensei Fitness Dojo, we believe that true fitness goes beyond physical strength. It's about building mental resilience, fostering discipline, and creating a supportive community. Our expert coaches bring years of experience in martial arts, fitness training, and holistic wellness to help you achieve your goals.</p>
+                    
                     <h3>What Makes Us Different</h3>
-                    <p>We combine traditional martial arts philosophy with modern fitness science to create programs
-                        that are effective, engaging, and accessible. Whether you're looking to improve your physical
-                        fitness, learn self-defense, or embark on a martial arts journey, we're here to guide you every
-                        step of the way.</p>
-
+                    <p>We combine traditional martial arts philosophy with modern fitness science to create programs that are effective, engaging, and accessible. Whether you're looking to improve your physical fitness, learn self-defense, or embark on a martial arts journey, we're here to guide you every step of the way.</p>
+                    
                     <h3>Join Our Community</h3>
-                    <p>Today, we're proud to serve thousands of members worldwide through our online platform, bringing
-                        the dojo experience directly to your home. We're not just a fitness platform – we're a family
-                        committed to your growth and success.</p>
+                    <p>Today, we're proud to serve thousands of members worldwide through our online platform, bringing the dojo experience directly to your home. We're not just a fitness platform – we're a family committed to your growth and success.</p>
                 </div>
             </div>
 
@@ -135,48 +156,49 @@
 
             <div class="payment-plans">
                 <div class="plan-card">
-                    <div class="plan-name">Free Trial</div>
-                    <div class="plan-price">$0</div>
-                    <div class="plan-period">For 3 days</div>
+                    <div class="plan-badge">FREE TRIAL</div>
+                    <div class="plan-name">3-Day Free Trial</div>
+                    <div class="plan-price"><span class="currency">₦</span>0</div>
+                    <div class="plan-period">for 3 days</div>
                     <ul class="plan-features">
                         <li>Access to all classes</li>
                         <li>Daily exercise programs</li>
                         <li>Self-defense training</li>
                         <li>Progress tracking</li>
                         <li>Mobile app access</li>
+                        <li>No credit card required</li>
                     </ul>
-                    <button class="btn btn-primary" onclick="initiateSignup('monthly')">3 Day Trial</button>
+                    <button class="btn btn-primary" onclick="initiateSignup('trial')">Start Free Trial</button>
                 </div>
 
                 <div class="plan-card featured">
-                    <div
-                        style="background: #ff6b35; color: white; padding: 0.5rem; border-radius: 8px; margin-bottom: 1rem; font-weight: 700;">
-                        MOST POPULAR</div>
-                    <div class="plan-name">Monthly</div>
-                    <div class="plan-price">₦10,000</div>
-                    <div class="plan-period">per 1 months</div>
+                    <div style="background: #ff6b35; color: white; padding: 0.5rem; border-radius: 8px; margin-bottom: 1rem; font-weight: 700;">MOST POPULAR</div>
+                    <div class="plan-name">Monthly Plan</div>
+                    <div class="plan-price"><span class="currency">₦</span>10,000</div>
+                    <div class="plan-period">per month</div>
                     <ul class="plan-features">
-                        <li>All Monthly features</li>
+                        <li>All Free Trial features</li>
                         <li>Personalized coaching</li>
                         <li>Nutrition guidance</li>
                         <li>Priority support</li>
                         <li>Exclusive content</li>
-                        <li>Save 20%</li>
+                        <li>Community access</li>
                     </ul>
-                    <button class="btn btn-primary" onclick="initiateSignup('quarterly')">Choose Monthly</button>
+                    <button class="btn btn-primary" onclick="initiateSignup('monthly')">Choose Monthly</button>
                 </div>
 
                 <div class="plan-card">
-                    <div class="plan-name">Annual</div>
-                    <div class="plan-price">₦110,000</div>
+                    <div class="plan-badge">BEST VALUE</div>
+                    <div class="plan-name">Annual Plan</div>
+                    <div class="plan-price"><span class="currency">₦</span>110,000</div>
                     <div class="plan-period">per year</div>
                     <ul class="plan-features">
-                        <li>All Quarterly features</li>
+                        <li>All Monthly features</li>
                         <li>1-on-1 coaching sessions</li>
                         <li>Custom meal plans</li>
                         <li>Lifetime access to courses</li>
                         <li>VIP community access</li>
-                        <li>Save 40%</li>
+                        <li>Save ₦10,000 annually</li>
                     </ul>
                     <button class="btn btn-primary" onclick="initiateSignup('annual')">Choose Annual</button>
                 </div>
@@ -192,8 +214,7 @@
 
             <!-- Contact Coach Button -->
             <div style="margin-bottom: 2rem; text-align: center;">
-                <button class="btn btn-primary" onclick="contactCoach()"
-                    style="max-width: 400px; width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1rem; padding: 1rem 2rem;">
+                <button class="btn btn-primary" onclick="contactCoach()" style="max-width: 400px; width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1rem; padding: 1rem 2rem;">
                     💬 Contact a Coach
                 </button>
             </div>
@@ -202,8 +223,7 @@
             <div class="current-class-container">
                 <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Current Class</h2>
                 <div id="currentClassDisplay">
-                    <p style="color: #7f8c8d; text-align: center; padding: 2rem;">No class selected. Select a class from
-                        Daily Exercise or Self Defense page.</p>
+                    <p style="color: #7f8c8d; text-align: center; padding: 2rem;">No class selected. Select a class from Daily Exercise or Self Defense page.</p>
                 </div>
             </div>
 
@@ -313,11 +333,9 @@
             <div class="classes-grid" id="exerciseClasses">
                 <!-- ChaCha Cardio -->
                 <div class="class-card" data-age="adult" data-class-id="chacha">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop"
-                            alt="ChaCha Cardio">
-                        <div class="play-button">▶</div>
+                    <div class="video-thumbnail ${!isAuthenticated ? 'locked' : ''}" onclick="${isAuthenticated ? 'playVideo(\'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4\')' : 'showPage(\'payment-plans\')'}">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop" alt="ChaCha Cardio">
+                        ${isAuthenticated ? '<div class="play-button">▶</div>' : ''}
                     </div>
                     <div class="class-info">
                         <h3 class="class-title">ChaCha Cardio</h3>
@@ -326,8 +344,7 @@
                             <span>🔥 High Intensity</span>
                             <span>👥 Adults</span>
                         </div>
-                        <p class="class-description">High-energy cardio workout that combines dance moves with strength
-                            training for maximum calorie burn.</p>
+                        <p class="class-description">High-energy cardio workout that combines dance moves with strength training for maximum calorie burn.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -337,18 +354,14 @@
                                 <li>Tones full body muscles</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('chacha', 'ChaCha Cardio', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('chacha', 'ChaCha Cardio', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <!-- Pompies Power -->
                 <div class="class-card" data-age="juvenile" data-class-id="pompies">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop"
-                            alt="Pompies Power">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop" alt="Pompies Power">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -358,8 +371,7 @@
                             <span>🔥 Medium Intensity</span>
                             <span>👥 Juvenile</span>
                         </div>
-                        <p class="class-description">Fun and energetic workout designed for young athletes to build
-                            strength and confidence.</p>
+                        <p class="class-description">Fun and energetic workout designed for young athletes to build strength and confidence.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -369,18 +381,14 @@
                                 <li>Develops discipline and focus</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('pompies', 'Pompies Power', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('pompies', 'Pompies Power', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <!-- Chauffling Stretch -->
                 <div class="class-card" data-age="adult" data-class-id="chauffling">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">
-                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop"
-                            alt="Chauffling Stretch">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop" alt="Chauffling Stretch">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -390,8 +398,7 @@
                             <span>🔥 Low Intensity</span>
                             <span>👥 All Ages</span>
                         </div>
-                        <p class="class-description">Gentle flexibility workout focusing on deep stretches and mobility
-                            improvement.</p>
+                        <p class="class-description">Gentle flexibility workout focusing on deep stretches and mobility improvement.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -401,18 +408,14 @@
                                 <li>Improves range of motion</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('chauffling', 'Chauffling Stretch', 'https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('chauffling', 'Chauffling Stretch', 'https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <!-- Squatting Strong -->
                 <div class="class-card" data-age="adult" data-class-id="squatting">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
-                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=400&fit=crop"
-                            alt="Squatting Strong">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=400&fit=crop" alt="Squatting Strong">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -422,8 +425,7 @@
                             <span>🔥 High Intensity</span>
                             <span>👥 Adults</span>
                         </div>
-                        <p class="class-description">Lower body focused workout targeting glutes, quads, and hamstrings
-                            for powerful legs.</p>
+                        <p class="class-description">Lower body focused workout targeting glutes, quads, and hamstrings for powerful legs.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -433,18 +435,14 @@
                                 <li>Boosts metabolism</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('squatting', 'Squatting Strong', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('squatting', 'Squatting Strong', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <!-- Flying Pompies -->
                 <div class="class-card" data-age="juvenile" data-class-id="flying">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
-                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=600&h=400&fit=crop"
-                            alt="Flying Pompies">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=600&h=400&fit=crop" alt="Flying Pompies">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -454,8 +452,7 @@
                             <span>🔥 Medium Intensity</span>
                             <span>👥 Juvenile</span>
                         </div>
-                        <p class="class-description">Dynamic plyometric exercises that build explosive power and agility
-                            for young athletes.</p>
+                        <p class="class-description">Dynamic plyometric exercises that build explosive power and agility for young athletes.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -465,9 +462,7 @@
                                 <li>Enhances coordination</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('flying', 'Flying Pompies', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('flying', 'Flying Pompies', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select This Class</button>
                     </div>
                 </div>
             </div>
@@ -475,22 +470,18 @@
             <!-- Events Section -->
             <div class="events-section">
                 <h2>Upcoming Events</h2>
-                <div class="event-card"
-                    onclick="showEventDetail('christmas-challenge', 'Christmas Fitness Challenge', 'Join our special holiday workout challenge! Win exciting prizes and stay fit during the festive season. This high-energy event includes team competitions, individual challenges, and festive fitness fun for the whole family.', '25', 'DEC', 'Online', '6:00 PM')">
+                <div class="event-card" onclick="showEventDetail('christmas-challenge', 'Christmas Fitness Challenge', 'Join our special holiday workout challenge! Win exciting prizes and stay fit during the festive season. This high-energy event includes team competitions, individual challenges, and festive fitness fun for the whole family.', '25', 'DEC', 'Online', '6:00 PM')">
                     <div class="event-date">
                         <div class="event-day">25</div>
                         <div class="event-month">DEC</div>
                     </div>
                     <div class="event-details">
                         <h3>Christmas Fitness Challenge</h3>
-                        <p>Join our special holiday workout challenge! Win exciting prizes and stay fit during the
-                            festive season.</p>
-                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Online • 6:00 PM • Click to
-                            view details</p>
+                        <p>Join our special holiday workout challenge! Win exciting prizes and stay fit during the festive season.</p>
+                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Online • 6:00 PM • Click to view details</p>
                     </div>
                 </div>
-                <div class="event-card"
-                    onclick="showEventDetail('new-year-kickstart', 'New Year Kickstart Program', 'Start 2025 strong! A special 30-day intensive program for all fitness levels. This comprehensive program includes personalized meal plans, daily workout routines, progress tracking, and weekly coaching calls.', '01', 'JAN', 'Live Stream', '7:00 AM')">
+                <div class="event-card" onclick="showEventDetail('new-year-kickstart', 'New Year Kickstart Program', 'Start 2025 strong! A special 30-day intensive program for all fitness levels. This comprehensive program includes personalized meal plans, daily workout routines, progress tracking, and weekly coaching calls.', '01', 'JAN', 'Live Stream', '7:00 AM')">
                     <div class="event-date">
                         <div class="event-day">01</div>
                         <div class="event-month">JAN</div>
@@ -498,8 +489,7 @@
                     <div class="event-details">
                         <h3>New Year Kickstart Program</h3>
                         <p>Start 2025 strong! A special 30-day intensive program for all fitness levels.</p>
-                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Live Stream • 7:00 AM •
-                            Click to view details</p>
+                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Live Stream • 7:00 AM • Click to view details</p>
                     </div>
                 </div>
             </div>
@@ -520,10 +510,8 @@
 
             <div class="classes-grid" id="defenseClasses">
                 <div class="class-card" data-age="adult">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
-                        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=400&fit=crop"
-                            alt="Basic Self-Defense">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=400&fit=crop" alt="Basic Self-Defense">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -533,8 +521,7 @@
                             <span>🥋 Beginner</span>
                             <span>👥 Adults</span>
                         </div>
-                        <p class="class-description">Learn fundamental self-defense moves including blocks, strikes, and
-                            escape techniques.</p>
+                        <p class="class-description">Learn fundamental self-defense moves including blocks, strikes, and escape techniques.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -544,17 +531,13 @@
                                 <li>Stress relief through training</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('basic-defense', 'Basic Self-Defense', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('basic-defense', 'Basic Self-Defense', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <div class="class-card" data-age="juvenile">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
-                        <img src="https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=600&h=400&fit=crop"
-                            alt="Kids Martial Arts">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=600&h=400&fit=crop" alt="Kids Martial Arts">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -564,8 +547,7 @@
                             <span>🥋 Beginner</span>
                             <span>👥 Juvenile</span>
                         </div>
-                        <p class="class-description">Age-appropriate martial arts training focusing on discipline,
-                            respect, and basic defense.</p>
+                        <p class="class-description">Age-appropriate martial arts training focusing on discipline, respect, and basic defense.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -575,17 +557,13 @@
                                 <li>Safe self-defense basics</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('kids-martial-arts', 'Kids Martial Arts', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('kids-martial-arts', 'Kids Martial Arts', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select This Class</button>
                     </div>
                 </div>
 
                 <div class="class-card" data-age="adult">
-                    <div class="video-thumbnail"
-                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&h=400&fit=crop"
-                            alt="Advanced Combat">
+                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&h=400&fit=crop" alt="Advanced Combat">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -595,8 +573,7 @@
                             <span>🥋 Advanced</span>
                             <span>👥 Adults</span>
                         </div>
-                        <p class="class-description">Advanced martial arts techniques including ground defense and
-                            multiple attacker scenarios.</p>
+                        <p class="class-description">Advanced martial arts techniques including ground defense and multiple attacker scenarios.</p>
                         <div class="benefits-list">
                             <h4>Benefits:</h4>
                             <ul>
@@ -606,9 +583,7 @@
                                 <li>Mental toughness development</li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary"
-                            onclick="selectClass('advanced-combat', 'Advanced Combat', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
-                            This Class</button>
+                        <button class="btn btn-primary" onclick="selectClass('advanced-combat', 'Advanced Combat', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select This Class</button>
                     </div>
                 </div>
             </div>
@@ -623,67 +598,55 @@
 
             <div class="marketplace-grid">
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop"
-                        alt="Gym Equipment" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop" alt="Gym Equipment" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Premium Gym Equipment</h3>
-                        <p class="ad-description">Get 20% off on all dumbbells, resistance bands, and yoga mats. Limited
-                            time offer!</p>
+                        <p class="ad-description">Get 20% off on all dumbbells, resistance bands, and yoga mats. Limited time offer!</p>
                         <button class="btn btn-primary">Shop Now</button>
                     </div>
                 </div>
 
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop"
-                        alt="Nutrition" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop" alt="Nutrition" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Healthy Meal Plans</h3>
-                        <p class="ad-description">Customized nutrition plans delivered to your door. Start eating
-                            healthy today!</p>
+                        <p class="ad-description">Customized nutrition plans delivered to your door. Start eating healthy today!</p>
                         <button class="btn btn-primary">Learn More</button>
                     </div>
                 </div>
 
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop"
-                        alt="Supplements" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop" alt="Supplements" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Sports Supplements</h3>
-                        <p class="ad-description">Premium protein powders and vitamins. Member exclusive 15% discount.
-                        </p>
+                        <p class="ad-description">Premium protein powders and vitamins. Member exclusive 15% discount.</p>
                         <button class="btn btn-primary">View Products</button>
                     </div>
                 </div>
 
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1556906781-9cba4a0f1a?w=600&h=400&fit=crop"
-                        alt="Activewear" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1556906781-9cba4a0f1a?w=600&h=400&fit=crop" alt="Activewear" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Athletic Wear</h3>
-                        <p class="ad-description">Comfortable and stylish workout clothes. New collection just arrived!
-                        </p>
+                        <p class="ad-description">Comfortable and stylish workout clothes. New collection just arrived!</p>
                         <button class="btn btn-primary">Browse Collection</button>
                     </div>
                 </div>
 
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&h=400&fit=crop"
-                        alt="Wearables" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&h=400&fit=crop" alt="Wearables" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Fitness Trackers</h3>
-                        <p class="ad-description">Track your workouts with the latest smartwatches. Special pricing for
-                            members.</p>
+                        <p class="ad-description">Track your workouts with the latest smartwatches. Special pricing for members.</p>
                         <button class="btn btn-primary">Explore Devices</button>
                     </div>
                 </div>
 
                 <div class="ad-card">
-                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop"
-                        alt="Wellness" class="ad-image">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop" alt="Wellness" class="ad-image">
                     <div class="ad-content">
                         <h3 class="ad-title">Wellness Programs</h3>
-                        <p class="ad-description">Meditation, yoga, and mindfulness courses. Holistic health approach.
-                        </p>
+                        <p class="ad-description">Meditation, yoga, and mindfulness courses. Holistic health approach.</p>
                         <button class="btn btn-primary">Get Started</button>
                     </div>
                 </div>
@@ -722,12 +685,9 @@
                 <div class="editor-field">
                     <label>Header Media Type</label>
                     <div class="media-type-selector">
-                        <button type="button" class="media-type-btn active" onclick="selectMediaType('image')">🖼️
-                            Image</button>
-                        <button type="button" class="media-type-btn" onclick="selectMediaType('video')">🎥
-                            Video</button>
-                        <button type="button" class="media-type-btn" onclick="selectMediaType('upload')">📤
-                            Upload</button>
+                        <button type="button" class="media-type-btn active" onclick="selectMediaType('image')">🖼️ Image</button>
+                        <button type="button" class="media-type-btn" onclick="selectMediaType('video')">🎥 Video</button>
+                        <button type="button" class="media-type-btn" onclick="selectMediaType('upload')">📤 Upload</button>
                         <button type="button" class="media-type-btn" onclick="selectMediaType('none')">❌ None</button>
                     </div>
                 </div>
@@ -745,14 +705,11 @@
                 <div class="editor-field">
                     <label>Content *</label>
                     <div class="editor-toolbar">
-                        <button type="button" class="toolbar-btn"
-                            onclick="formatText('bold')"><strong>B</strong></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('bold')"><strong>B</strong></button>
                         <button type="button" class="toolbar-btn" onclick="formatText('italic')"><em>I</em></button>
                         <button type="button" class="toolbar-btn" onclick="formatText('underline')"><u>U</u></button>
-                        <button type="button" class="toolbar-btn" onclick="formatText('insertUnorderedList')">•
-                            List</button>
-                        <button type="button" class="toolbar-btn" onclick="formatText('insertOrderedList')">1.
-                            List</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('insertUnorderedList')">• List</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('insertOrderedList')">1. List</button>
                         <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'h2')">H2</button>
                         <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'h3')">H3</button>
                         <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'p')">P</button>
@@ -777,6 +734,50 @@
                 <!-- Post content will be loaded here -->
             </div>
 
+            <!-- Social Share Buttons -->
+            <div class="social-share">
+                <span class="social-share-label">Share this post:</span>
+                <button class="social-btn facebook" onclick="shareOnSocial('facebook')">
+                    📘 Facebook
+                </button>
+                <button class="social-btn twitter" onclick="shareOnSocial('twitter')">
+                    🐦 Twitter
+                </button>
+                <button class="social-btn instagram" onclick="shareOnSocial('instagram')">
+                    📷 Instagram
+                </button>
+            </div>
+
+            <!-- Poll Section -->
+            <div class="poll-section" id="pollSection">
+                <h3 class="poll-question" id="pollQuestion">Did you find this post helpful?</h3>
+                <div class="poll-options" id="pollOptions">
+                    <!-- Poll options will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <div class="comments-header">
+                    <h3>Comments (<span id="commentCount">0</span>)</h3>
+                </div>
+
+                <div class="comment-input-area">
+                    <textarea 
+                        class="comment-input" 
+                        id="commentInput" 
+                        placeholder="Share your thoughts..."
+                        onkeypress="handleCommentKeyPress(event)"></textarea>
+                    <button class="btn btn-primary" onclick="submitComment()" style="height: fit-content;">
+                        Submit
+                    </button>
+                </div>
+
+                <div id="commentsContainer">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </div>
+
             <div class="blog-navigation">
                 <button class="nav-btn" id="prevPostBtn" onclick="navigatePost('prev')">
                     ← Previous Post
@@ -790,13 +791,11 @@
         <!-- EVENT DETAIL PAGE -->
         <div class="page" id="event-detail">
             <button class="back-btn" onclick="showPage('daily-exercise')">← Back to Classes</button>
-
+            
             <div class="event-detail-container">
                 <div class="event-video-container">
                     <video id="eventVideo" controls>
-                        <source
-                            src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4"
-                            type="video/mp4">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="event-info">
@@ -808,9 +807,7 @@
                         <p id="eventLocation" style="color: #666; margin-bottom: 0.5rem;"></p>
                         <p id="eventTime" style="color: #666;"></p>
                     </div>
-                    <button class="btn btn-primary" style="margin-top: 2rem;"
-                        onclick="alert('Event registration successful! We will send you confirmation details via email.')">Register
-                        for Event</button>
+                    <button class="btn btn-primary" style="margin-top: 2rem;" onclick="alert('Event registration successful! We will send you confirmation details via email.')">Register for Event</button>
                 </div>
             </div>
         </div>

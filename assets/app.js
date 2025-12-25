@@ -25,6 +25,67 @@
         let editingPostId = null;
         let currentMediaType = 'image';
         let isAuthenticated = false;
+        let currentSlide = 0;
+        let carouselInterval;
+        let currentComments = [];
+        let editingCommentId = null;
+        let pollVotes = {};
+
+        // Generate unique ID
+        function generateId() {
+            return Math.random().toString(36).substring(2, 10);
+        }
+
+        // Carousel Functions
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function startCarousel() {
+            carouselInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        function stopCarousel() {
+            clearInterval(carouselInterval);
+        }
+
+        // Auto-start carousel
+        window.addEventListener('load', () => {
+            startCarousel();
+        });
+
+        // Pause on hover
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('.hero-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', stopCarousel);
+                carousel.addEventListener('mouseleave', startCarousel);
+            }
+        });
 
         // Authentication Check
         auth.onAuthStateChanged((user) => {
@@ -740,16 +801,16 @@
         }
 
         // View Post
-        function viewPost(index) {
+        async function viewPost(index) {
             currentPostIndex = index;
             const post = blogPosts[index];
-            const date = post.date ? new Date(post.date.toDate ? post.date.toDate() : post.date) : new Date();
+            const date = post.createdAt ? new Date(post.createdAt.toDate ? post.createdAt.toDate() : post.createdAt) : new Date();
             
             let mediaHtml = '';
-            if (post.mediaType === 'image' && post.mediaUrl) {
-                mediaHtml = `<img src="${post.mediaUrl}" alt="${post.title}" class="blog-post-view-header">`;
-            } else if (post.mediaType === 'video' && post.mediaUrl) {
-                mediaHtml = `<video src="${post.mediaUrl}" class="blog-post-view-header" controls></video>`;
+            if (post.mediaType === 'image' && post.media) {
+                mediaHtml = `<img src="${post.media}" alt="${post.title}" class="blog-post-view-header">`;
+            } else if (post.mediaType === 'video' && post.media) {
+                mediaHtml = `<video src="${post.media}" class="blog-post-view-header" controls></video>`;
             }
 
             document.getElementById('blogPostViewContent').innerHTML = `
@@ -767,7 +828,228 @@
             document.getElementById('prevPostBtn').disabled = index === 0;
             document.getElementById('nextPostBtn').disabled = index === blogPosts.length - 1;
 
+            // Load poll
+            loadPoll(post.id);
+
+            // Load comments
+            await loadComments(post.id);
+
             showPage('blog-post-view');
+        }
+
+        // Social Share Functions
+        function shareOnSocial(platform) {
+            const post = blogPosts[currentPostIndex];
+            const url = window.location.href;
+            const text = encodeURIComponent(post.title);
+            
+            let shareUrl = '';
+            
+            if (platform === 'facebook') {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            } else if (platform === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            } else if (platform === 'instagram') {
+                alert('To share on Instagram:\n\n1. Take a screenshot of this post\n2. Open Instagram app\n3. Create a new post/story\n4. Upload the screenshot\n\nInstagram doesn\'t support direct web sharing yet!');
+                return;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // Poll Functions
+        function loadPoll(postId) {
+            const pollOptions = [
+                { id: 'yes', text: 'Yes, very helpful!', votes: 0 },
+                { id: 'somewhat', text: 'Somewhat helpful', votes: 0 },
+                { id: 'no', text: 'Not really', votes: 0 }
+            ];
+
+            // Load votes from localStorage
+            const savedVotes = JSON.parse(localStorage.getItem(`poll_${postId}`) || '{}');
+            pollVotes = savedVotes;
+
+            const totalVotes = Object.values(savedVotes).reduce((a, b) => a + b, 0);
+            const hasVoted = localStorage.getItem(`poll_voted_${postId}`);
+
+            const pollContainer = document.getElementById('pollOptions');
+            pollContainer.innerHTML = pollOptions.map(option => {
+                const votes = savedVotes[option.id] || 0;
+                const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+                
+                if (hasVoted) {
+                    return `
+                        <div class="poll-option">
+                            <div class="poll-bar" style="width: ${percentage}%"></div>
+                            <div class="poll-result poll-text">
+                                <span>${option.text}</span>
+                                <span>${percentage}% (${votes} votes)</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="poll-option" onclick="votePoll('${postId}', '${option.id}')">
+                            <div class="poll-text">${option.text}</div>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        function votePoll(postId, optionId) {
+            const savedVotes = JSON.parse(localStorage.getItem(`poll_${postId}`) || '{}');
+            savedVotes[optionId] = (savedVotes[optionId] || 0) + 1;
+            localStorage.setItem(`poll_${postId}`, JSON.stringify(savedVotes));
+            localStorage.setItem(`poll_voted_${postId}`, 'true');
+            
+            loadPoll(postId);
+        }
+
+        // Comments Functions
+        async function loadComments(postId) {
+            try {
+                const snapshot = await db.collection('blogPosts').doc(postId).collection('comments').orderBy('createdAt', 'desc').get();
+                currentComments = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                renderComments();
+            } catch (error) {
+                console.error('Error loading comments:', error);
+                currentComments = [];
+                renderComments();
+            }
+        }
+
+        function renderComments() {
+            document.getElementById('commentCount').textContent = currentComments.length;
+            
+            const container = document.getElementById('commentsContainer');
+            if (currentComments.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 2rem;">No comments yet. Be the first to comment!</p>';
+                return;
+            }
+
+            container.innerHTML = currentComments.map(comment => {
+                const date = comment.createdAt ? new Date(comment.createdAt.toDate ? comment.createdAt.toDate() : comment.createdAt) : new Date();
+                const canEdit = isAuthenticated && currentUser && comment.authorId === currentUser.uid;
+
+                return `
+                    <div class="comment-card" id="comment-${comment.id}">
+                        <div class="comment-header">
+                            <span class="comment-author">${comment.author}</span>
+                            <span class="comment-date">${date.toLocaleString()}</span>
+                        </div>
+                        <div class="comment-content" id="comment-content-${comment.id}">
+                            ${comment.content}
+                        </div>
+                        ${canEdit ? `
+                            <div class="comment-actions">
+                                <button class="btn btn-secondary btn-small" onclick="editComment('${comment.id}', '${comment.content.replace(/'/g, "\\'")}')">Edit</button>
+                                <button class="btn btn-danger btn-small" onclick="deleteComment('${comment.id}')">Delete</button>
+                            </div>
+                            <div class="comment-edit-area" id="comment-edit-${comment.id}" style="display: none;">
+                                <input type="text" class="comment-edit-input" id="comment-edit-input-${comment.id}" value="${comment.content.replace(/"/g, '&quot;')}">
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button class="btn btn-primary btn-small" onclick="saveCommentEdit('${comment.id}')">Save</button>
+                                    <button class="btn btn-secondary btn-small" onclick="cancelCommentEdit('${comment.id}')">Cancel</button>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleCommentKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                submitComment();
+            }
+        }
+
+        async function submitComment() {
+            if (!isAuthenticated) {
+                alert('Please sign up to comment!');
+                showPage('payment-plans');
+                return;
+            }
+
+            const input = document.getElementById('commentInput');
+            const content = input.value.trim();
+
+            if (!content) {
+                alert('Please enter a comment');
+                return;
+            }
+
+            try {
+                const post = blogPosts[currentPostIndex];
+                const commentId = generateId();
+                
+                await db.collection('blogPosts').doc(post.id).collection('comments').doc(commentId).set({
+                    id: commentId,
+                    content: content,
+                    author: document.getElementById('profileName').textContent || 'Anonymous',
+                    authorId: currentUser.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                input.value = '';
+                await loadComments(post.id);
+            } catch (error) {
+                console.error('Error submitting comment:', error);
+                alert('Error submitting comment: ' + error.message);
+            }
+        }
+
+        function editComment(commentId, content) {
+            document.getElementById(`comment-content-${commentId}`).style.display = 'none';
+            document.getElementById(`comment-edit-${commentId}`).style.display = 'block';
+        }
+
+        function cancelCommentEdit(commentId) {
+            document.getElementById(`comment-content-${commentId}`).style.display = 'block';
+            document.getElementById(`comment-edit-${commentId}`).style.display = 'none';
+        }
+
+        async function saveCommentEdit(commentId) {
+            const input = document.getElementById(`comment-edit-input-${commentId}`);
+            const newContent = input.value.trim();
+
+            if (!newContent) {
+                alert('Comment cannot be empty');
+                return;
+            }
+
+            try {
+                const post = blogPosts[currentPostIndex];
+                await db.collection('blogPosts').doc(post.id).collection('comments').doc(commentId).update({
+                    content: newContent,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                await loadComments(post.id);
+            } catch (error) {
+                console.error('Error updating comment:', error);
+                alert('Error updating comment: ' + error.message);
+            }
+        }
+
+        async function deleteComment(commentId) {
+            if (!confirm('Are you sure you want to delete this comment?')) {
+                return;
+            }
+
+            try {
+                const post = blogPosts[currentPostIndex];
+                await db.collection('blogPosts').doc(post.id).collection('comments').doc(commentId).delete();
+                await loadComments(post.id);
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                alert('Error deleting comment: ' + error.message);
+            }
         }
 
         // Navigate Between Posts
