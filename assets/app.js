@@ -1,4 +1,4 @@
- // Firebase Configuration
+// Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDr02ajJ3lzU7zxLlWXnscK-hHENJpznS4",
             authDomain: "sensei-fitness-dojo.firebaseapp.com",
@@ -30,10 +30,173 @@
         let currentComments = [];
         let editingCommentId = null;
         let pollVotes = {};
+        let selectedPlan = null;
 
         // Generate unique ID
         function generateId() {
             return Math.random().toString(36).substring(2, 10);
+        }
+
+        // Setup Auth Tab Listeners
+        function setupAuthTabs() {
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.getAttribute('data-tab');
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update forms
+                    document.querySelectorAll('.auth-form').forEach(form => {
+                        form.classList.remove('active');
+                    });
+                    document.getElementById(`${targetTab}-form`).classList.add('active');
+                });
+            });
+        }
+
+        // Setup Social Auth Buttons
+        function setupSocialAuth() {
+            const googleProvider = new firebase.auth.GoogleAuthProvider();
+            const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
+            // Google Sign Up
+            document.getElementById('googleSignupBtn').addEventListener('click', async () => {
+                try {
+                    const result = await auth.signInWithPopup(googleProvider);
+                    await handleAuthSuccess(result.user, selectedPlan);
+                } catch (error) {
+                    console.error('Google signup error:', error);
+                    alert('Error signing up with Google: ' + error.message);
+                }
+            });
+
+            // Google Login
+            document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+                try {
+                    await auth.signInWithPopup(googleProvider);
+                    showPage('home');
+                } catch (error) {
+                    console.error('Google login error:', error);
+                    alert('Error logging in with Google: ' + error.message);
+                }
+            });
+
+            // Facebook Sign Up
+            document.getElementById('facebookSignupBtn').addEventListener('click', async () => {
+                try {
+                    const result = await auth.signInWithPopup(facebookProvider);
+                    await handleAuthSuccess(result.user, selectedPlan);
+                } catch (error) {
+                    console.error('Facebook signup error:', error);
+                    alert('Error signing up with Facebook: ' + error.message);
+                }
+            });
+
+            // Facebook Login
+            document.getElementById('facebookLoginBtn').addEventListener('click', async () => {
+                try {
+                    await auth.signInWithPopup(facebookProvider);
+                    showPage('home');
+                } catch (error) {
+                    console.error('Facebook login error:', error);
+                    alert('Error logging in with Facebook: ' + error.message);
+                }
+            });
+        }
+
+        // Handle Signup
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                await userCredential.user.updateProfile({ displayName: name });
+                await handleAuthSuccess(userCredential.user, selectedPlan);
+            } catch (error) {
+                console.error('Signup error:', error);
+                alert('Error creating account: ' + error.message);
+            }
+        }
+
+        // Handle Login
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                showPage('home');
+                alert('Welcome back! Logged in successfully.');
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Error logging in: ' + error.message);
+            }
+        }
+
+        // Handle Auth Success
+        async function handleAuthSuccess(user, plan) {
+            try {
+                const trialEndDate = new Date();
+                trialEndDate.setHours(trialEndDate.getHours() + 72); // 72 hours from now
+
+                const userData = {
+                    fullName: user.displayName || document.getElementById('signupName')?.value || 'User',
+                    email: user.email,
+                    plan: plan || 'trial',
+                    planStartDate: firebase.firestore.FieldValue.serverTimestamp(),
+                    trialEndDate: plan === 'trial' ? trialEndDate : null,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('users').doc(user.uid).set(userData, { merge: true });
+                
+                if (plan === 'trial') {
+                    alert('🎉 Welcome! Your 3-day free trial has started!\n\nYou have full access for 72 hours.');
+                } else {
+                    alert(`🎉 Welcome! Your ${plan} plan is now active!`);
+                }
+                
+                showPage('home');
+            } catch (error) {
+                console.error('Error saving user data:', error);
+            }
+        }
+
+        // Check Trial Expiration
+        async function checkTrialExpiration() {
+            if (!currentUser) return;
+
+            try {
+                const doc = await db.collection('users').doc(currentUser.uid).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.plan === 'trial' && data.trialEndDate) {
+                        const trialEnd = data.trialEndDate.toDate();
+                        const now = new Date();
+                        
+                        if (now > trialEnd) {
+                            alert('Your 3-day free trial has expired!\n\nPlease choose a plan to continue enjoying our services.');
+                            showPage('payment-plans');
+                            
+                            // Update user plan to expired
+                            await db.collection('users').doc(currentUser.uid).update({
+                                plan: 'expired'
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking trial:', error);
+            }
         }
 
         // Carousel Functions
@@ -73,19 +236,13 @@
             clearInterval(carouselInterval);
         }
 
-        // Auto-start carousel
-        window.addEventListener('load', () => {
-            startCarousel();
-        });
-
-        // Pause on hover
-        document.addEventListener('DOMContentLoaded', () => {
-            const carousel = document.querySelector('.hero-carousel');
-            if (carousel) {
-                carousel.addEventListener('mouseenter', stopCarousel);
-                carousel.addEventListener('mouseleave', startCarousel);
-            }
-        });
+        // Setup Carousel Indicators
+        function setupCarouselIndicators() {
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => goToSlide(index));
+            });
+        }
 
         // Authentication Check
         auth.onAuthStateChanged((user) => {
@@ -94,11 +251,16 @@
                 isAuthenticated = true;
                 loadUserProfile(user);
                 updateAuthUI(true);
+                checkTrialExpiration();
+                
+                // Check trial every 5 minutes
+                setInterval(checkTrialExpiration, 5 * 60 * 1000);
             } else {
                 isAuthenticated = false;
                 updateAuthUI(false);
             }
             loadBlogPosts();
+            setupVideoThumbnails();
         });
 
         // Update Auth UI
@@ -107,7 +269,7 @@
             if (loggedIn) {
                 authSection.innerHTML = `
                     <div class="profile-dropdown">
-                        <div class="profile-trigger" onclick="toggleProfileDropdown()">
+                        <div class="profile-trigger">
                             <div class="profile-avatar-small" id="navAvatar">JD</div>
                             <span style="color: white;">▼</span>
                         </div>
@@ -117,20 +279,91 @@
                                 <p id="dropdownEmail">john.doe@email.com</p>
                             </div>
                             <div class="dropdown-links">
-                                <a onclick="showPage('profile')">👤 View Profile</a>
-                                <a class="logout-btn" onclick="logout()">🚪 Logout</a>
+                                <a>👤 View Profile</a>
+                                <a class="logout-btn">🚪 Logout</a>
                             </div>
                         </div>
                     </div>
                 `;
+                
+                // Add event listeners after creating elements
+                const profileTrigger = document.querySelector('.profile-trigger');
+                profileTrigger.addEventListener('click', toggleProfileDropdown);
+                
+                const profileLink = document.querySelector('.dropdown-links a:first-child');
+                profileLink.addEventListener('click', () => showPage('profile'));
+                
+                const logoutBtn = document.querySelector('.logout-btn');
+                logoutBtn.addEventListener('click', logout);
             } else {
                 authSection.innerHTML = `
                     <div class="auth-buttons">
-                        <button class="btn-login" onclick="showPage('payment-plans')">Login</button>
-                        <button class="btn-signup" onclick="showPage('payment-plans')">Sign Up</button>
+                        <button class="btn-login">Login</button>
+                        <button class="btn-signup">Sign Up</button>
                     </div>
                 `;
+                
+                // Add event listeners
+                const loginBtn = document.querySelector('.btn-login');
+                loginBtn.addEventListener('click', () => {
+                    selectedPlan = null;
+                    showPage('auth-page');
+                    document.querySelector('.auth-tab[data-tab="login"]').click();
+                });
+                
+                const signupBtn = document.querySelector('.btn-signup');
+                signupBtn.addEventListener('click', () => {
+                    selectedPlan = 'trial';
+                    document.getElementById('trialInfo').style.display = 'block';
+                    showPage('auth-page');
+                });
             }
+        }
+
+        // Setup Video Thumbnails with Event Listeners
+        function setupVideoThumbnails() {
+            const thumbnails = document.querySelectorAll('.video-thumbnail');
+            thumbnails.forEach(thumbnail => {
+                // Remove existing listeners
+                thumbnail.replaceWith(thumbnail.cloneNode(true));
+            });
+            
+            // Re-query after cloning
+            const newThumbnails = document.querySelectorAll('.video-thumbnail');
+            newThumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    if (!isAuthenticated) {
+                        thumbnail.classList.add('locked');
+                        alert('Please sign up to view videos!\n\nYou will be redirected to choose a plan.');
+                        selectedPlan = 'trial';
+                        document.getElementById('trialInfo').style.display = 'block';
+                        showPage('auth-page');
+                    } else {
+                        const videoUrl = this.dataset.videoUrl;
+                        if (videoUrl) {
+                            playVideo(videoUrl);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initiate Signup with Plan
+        function initiateSignup(plan) {
+            selectedPlan = plan;
+            
+            if (plan === 'trial') {
+                document.getElementById('authSubtitle').textContent = 'Start your 3-day free trial';
+                document.getElementById('trialInfo').style.display = 'block';
+            } else if (plan === 'monthly') {
+                document.getElementById('authSubtitle').textContent = 'Subscribe to Monthly Plan (₦10,000/month)';
+                document.getElementById('trialInfo').style.display = 'none';
+            } else if (plan === 'annual') {
+                document.getElementById('authSubtitle').textContent = 'Subscribe to Annual Plan (₦110,000/year)';
+                document.getElementById('trialInfo').style.display = 'none';
+            }
+            
+            showPage('auth-page');
         }
 
         // Load User Profile from Firebase
@@ -1089,4 +1322,15 @@ ${post.content.replace(/<[^>]*>/g, '\n')}
         window.addEventListener('load', () => {
             displayCurrentClass();
             loadBlogPosts();
+            startCarousel();
+            setupCarouselIndicators();
+            setupAuthTabs();
+            setupSocialAuth();
+            
+            // Pause carousel on hover
+            const carousel = document.querySelector('.hero-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', stopCarousel);
+                carousel.addEventListener('mouseleave', startCarousel);
+            }
         });

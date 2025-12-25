@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!-- Navigation Bar -->
+     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo" onclick="showPage('home')">🥋 SENSEI FITNESS DOJO</div>
         <div class="nav-links" id="navLinks">
@@ -89,14 +89,14 @@
                 </div>
 
                 <button class="carousel-nav prev" onclick="changeSlide(-1)">‹</button>
-                <button class="carousel-nav next" onclick="changeSlide(1)">›</button>
+                <button class="carousel-nav next" onclick="changeSlide(1)" style="display: none;">›</button>
 
                 <div class="carousel-indicators">
-                    <div class="carousel-indicator active" onclick="goToSlide(0)"></div>
-                    <div class="carousel-indicator" onclick="goToSlide(1)"></div>
-                    <div class="carousel-indicator" onclick="goToSlide(2)"></div>
-                    <div class="carousel-indicator" onclick="goToSlide(3)"></div>
-                    <div class="carousel-indicator" onclick="goToSlide(4)"></div>
+                    <div class="carousel-indicator active"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
 
@@ -333,8 +333,8 @@
             <div class="classes-grid" id="exerciseClasses">
                 <!-- ChaCha Cardio -->
                 <div class="class-card" data-age="adult" data-class-id="chacha">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop" alt="Pompies Power">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop" alt="ChaCha Cardio">
                         <div class="play-button">▶</div>
                     </div>
                     <div class="class-info">
@@ -360,7 +360,7 @@
 
                 <!-- Pompies Power -->
                 <div class="class-card" data-age="juvenile" data-class-id="pompies">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4">
                         <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop" alt="Pompies Power">
                         <div class="play-button">▶</div>
                     </div>
@@ -387,7 +387,7 @@
 
                 <!-- Chauffling Stretch -->
                 <div class="class-card" data-age="adult" data-class-id="chauffling">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4">
                         <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop" alt="Chauffling Stretch">
                         <div class="play-button">▶</div>
                     </div>
@@ -414,7 +414,7 @@
 
                 <!-- Squatting Strong -->
                 <div class="class-card" data-age="adult" data-class-id="squatting">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4">
                         <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=400&fit=crop" alt="Squatting Strong">
                         <div class="play-button">▶</div>
                     </div>
@@ -441,7 +441,7 @@
 
                 <!-- Flying Pompies -->
                 <div class="class-card" data-age="juvenile" data-class-id="flying">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4">
                         <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=600&h=400&fit=crop" alt="Flying Pompies">
                         <div class="play-button">▶</div>
                     </div>
@@ -510,7 +510,7 @@
 
             <div class="classes-grid" id="defenseClasses">
                 <div class="class-card" data-age="adult">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4">
                         <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=400&fit=crop" alt="Basic Self-Defense">
                         <div class="play-button">▶</div>
                     </div>
@@ -536,7 +536,7 @@
                 </div>
 
                 <div class="class-card" data-age="juvenile">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4">
                         <img src="https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=600&h=400&fit=crop" alt="Kids Martial Arts">
                         <div class="play-button">▶</div>
                     </div>
@@ -562,7 +562,7 @@
                 </div>
 
                 <div class="class-card" data-age="adult">
-                    <div class="video-thumbnail" onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                    <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4">
                         <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&h=400&fit=crop" alt="Advanced Combat">
                         <div class="play-button">▶</div>
                     </div>
@@ -852,6 +852,105 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- AUTH PAGE -->
+        <div class="page" id="auth-page">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Welcome to Sensei Fitness Dojo</h1>
+                    <p id="authSubtitle">Start your fitness journey today</p>
+                </div>
+
+                <div id="trialInfo" class="trial-info" style="display: none;">
+                    <h3>🎉 3-Day Free Trial</h3>
+                    <p>Get full access to all features for 72 hours. No credit card required!</p>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="signup">Sign Up</button>
+                    <button class="auth-tab" data-tab="login">Login</button>
+                </div>
+
+                <!-- Sign Up Form -->
+                <div class="auth-form active" id="signup-form">
+                    <div class="social-auth">
+                        <button class="social-auth-btn google" id="googleSignupBtn">
+                            <span style="font-size: 1.5rem;">📧</span>
+                            Continue with Google
+                        </button>
+                        <button class="social-auth-btn facebook" id="facebookSignupBtn">
+                            <span style="font-size: 1.5rem;">📘</span>
+                            Continue with Facebook
+                        </button>
+                    </div>
+
+                    <div class="divider">
+                        <span>or sign up with email</span>
+                    </div>
+
+                    <form onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <input type="password" id="signupPassword" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" required style="width: auto; margin-right: 0.5rem;">
+                                I agree to the Terms of Service and Privacy Policy
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form" id="login-form">
+                    <div class="social-auth">
+                        <button class="social-auth-btn google" id="googleLoginBtn">
+                            <span style="font-size: 1.5rem;">📧</span>
+                            Continue with Google
+                        </button>
+                        <button class="social-auth-btn facebook" id="facebookLoginBtn">
+                            <span style="font-size: 1.5rem;">📘</span>
+                            Continue with Facebook
+                        </button>
+                    </div>
+
+                    <div class="divider">
+                        <span>or login with email</span>
+                    </div>
+
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" style="width: auto;">
+                                Remember me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <p style="text-align: center; margin-top: 1rem; color: #7f8c8d;">
+                            <a href="#" onclick="alert('Password reset email sent!'); return false;" style="color: #ff6b35; text-decoration: none;">Forgot password?</a>
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
