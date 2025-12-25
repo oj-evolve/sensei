@@ -1,4 +1,4 @@
-// Firebase Configuration
+ // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDr02ajJ3lzU7zxLlWXnscK-hHENJpznS4",
             authDomain: "sensei-fitness-dojo.firebaseapp.com",
@@ -495,18 +495,58 @@
         }
 
         // Video Functions
-        function playVideo(videoUrl) {
-            document.getElementById('modalVideoSource').src = videoUrl;
-            document.getElementById('modalVideo').load();
-            document.getElementById('videoModal').classList.add('active');
-            document.getElementById('modalVideo').play();
+        async function playVideo(videoUrl) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const source = document.getElementById('modalVideoSource');
+            
+            try {
+                // First, ensure video is paused
+                if (!video.paused) {
+                    video.pause();
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                // Set new source and load
+                source.src = videoUrl;
+                video.load();
+                
+                // Show modal
+                modal.classList.add('active');
+                
+                // Wait for video to be ready and then play
+                video.onloadeddata = async () => {
+                    try {
+                        await video.play();
+                    } catch (error) {
+                        console.log('Video play prevented:', error);
+                    }
+                };
+            } catch (error) {
+                console.error('Error playing video:', error);
+            }
         }
 
-        function closeVideoModal() {
-            document.getElementById('videoModal').classList.remove('active');
+        async function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
             const video = document.getElementById('modalVideo');
-            video.pause();
-            video.currentTime = 0;
+            
+            try {
+                // Pause video if playing
+                if (!video.paused) {
+                    await video.pause();
+                }
+                
+                // Reset video
+                video.currentTime = 0;
+                video.src = '';
+                
+                // Hide modal
+                modal.classList.remove('active');
+            } catch (error) {
+                console.error('Error closing video:', error);
+                modal.classList.remove('active');
+            }
         }
 
         function castToDevice(method) {
@@ -621,7 +661,7 @@
                 display.innerHTML = `
                     <div style="text-align: center;">
                         <h3 style="color: #2c3e50; margin-bottom: 1rem;">${currentClassName}</h3>
-                        <video class="current-class-video" controls>
+                        <video class="current-class-video" controls preload="metadata">
                             <source src="${currentClassVideo}" type="video/mp4">
                         </video>
                         <p style="color: #7f8c8d; margin-top: 1rem;">Keep up the great work! Track your progress below.</p>
