@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensei Fitness Dojo - Transform Your Body & Mind</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo" onclick="showPage('home')">🥋 SENSEI FITNESS DOJO</div>
+        <div class="nav-links" id="navLinks">
+            <a class="nav-link active" onclick="showPage('home')">Home</a>
+            <a class="nav-link" onclick="showPage('my-programme')">My Programme</a>
+            <a class="nav-link" onclick="showPage('daily-exercise')">Daily Exercise</a>
+            <a class="nav-link" onclick="showPage('self-defense')">Self Defense</a>
+            <a class="nav-link" onclick="showPage('marketplace')">Market Place</a>
+            <a class="nav-link" onclick="showPage('blog')">Blog</a>
+
+            <!-- Profile Dropdown or Auth Buttons -->
+            <div id="authSection">
+                <div class="auth-buttons">
+                    <button class="btn-login" onclick="showPage('payment-plans')">Login</button>
+                    <button class="btn-signup" onclick="showPage('payment-plans')">Sign Up</button>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button class="close-sidebar" onclick="toggleSidebar()">×</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a onclick="showPage('home')"><span class="icon">🏠</span> Home</a></li>
+            <li><a onclick="showPage('my-programme')"><span class="icon">📊</span> My Programme</a></li>
+            <li><a onclick="showPage('daily-exercise')"><span class="icon">💪</span> Daily Exercise</a></li>
+            <li><a onclick="showPage('self-defense')"><span class="icon">🥋</span> Self Defense</a></li>
+            <li><a onclick="showPage('marketplace')"><span class="icon">🛒</span> Market Place</a></li>
+            <li><a onclick="showPage('blog')"><span class="icon">📝</span> Blog</a></li>
+            <li><a onclick="showPage('profile')"><span class="icon">👤</span> User Profile</a></li>
+            <li><a onclick="logout()"><span class="icon">🚪</span> Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- HOME PAGE -->
+        <div class="page active" id="home">
+            <div class="hero-section">
+                <h1>🥋 Transform Your Body & Mind</h1>
+                <p>Join thousands of members on their fitness journey with expert-led classes and personalized programs
+                </p>
+                <button class="btn btn-primary" onclick="showPage('payment-plans')"
+                    style="max-width: 300px; margin: 0 auto; display: block;">Get Started Today</button>
+            </div>
+
+            <!-- Director's Introduction -->
+            <div class="director-section">
+                <h2>Welcome from Our Director</h2>
+                <div class="director-video">
+                    <!-- You can replace this with actual video URL -->
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                    <!-- Or use video tag -->
+                    <!-- <video controls>
+                        <source src="your-video-url.mp4" type="video/mp4">
+                    </video> -->
+                </div>
+                <div class="director-content">
+                    <h3>Our Story</h3>
+                    <p>Welcome to Sensei Fitness Dojo, where tradition meets innovation in the world of fitness and
+                        martial arts. Founded in 2020, our journey began with a simple vision: to create a welcoming
+                        space where people of all ages and fitness levels could discover the transformative power of
+                        disciplined training.</p>
+
+                    <h3>Our Mission</h3>
+                    <p>At Sensei Fitness Dojo, we believe that true fitness goes beyond physical strength. It's about
+                        building mental resilience, fostering discipline, and creating a supportive community. Our
+                        expert coaches bring years of experience in martial arts, fitness training, and holistic
+                        wellness to help you achieve your goals.</p>
+
+                    <h3>What Makes Us Different</h3>
+                    <p>We combine traditional martial arts philosophy with modern fitness science to create programs
+                        that are effective, engaging, and accessible. Whether you're looking to improve your physical
+                        fitness, learn self-defense, or embark on a martial arts journey, we're here to guide you every
+                        step of the way.</p>
+
+                    <h3>Join Our Community</h3>
+                    <p>Today, we're proud to serve thousands of members worldwide through our online platform, bringing
+                        the dojo experience directly to your home. We're not just a fitness platform – we're a family
+                        committed to your growth and success.</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="stats-grid">
+                <div class="stat-card" style="cursor: pointer;" onclick="showPage('daily-exercise')">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Daily Classes</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="showPage('self-defense')">
+                    <div class="stat-value">20+</div>
+                    <div class="stat-label">Self Defense Programs</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="showPage('blog')">
+                    <div class="stat-value">100+</div>
+                    <div class="stat-label">Blog Articles</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="showPage('payment-plans')">
+                    <div class="stat-value">5000+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT PLANS PAGE -->
+        <div class="page" id="payment-plans">
+            <div class="page-header">
+                <h1>Choose Your Plan</h1>
+                <p>Select the perfect plan for your fitness journey</p>
+            </div>
+
+            <div class="payment-plans">
+                <div class="plan-card">
+                    <div class="plan-name">Free Trial</div>
+                    <div class="plan-price">$0</div>
+                    <div class="plan-period">For 3 days</div>
+                    <ul class="plan-features">
+                        <li>Access to all classes</li>
+                        <li>Daily exercise programs</li>
+                        <li>Self-defense training</li>
+                        <li>Progress tracking</li>
+                        <li>Mobile app access</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="initiateSignup('monthly')">3 Day Trial</button>
+                </div>
+
+                <div class="plan-card featured">
+                    <div
+                        style="background: #ff6b35; color: white; padding: 0.5rem; border-radius: 8px; margin-bottom: 1rem; font-weight: 700;">
+                        MOST POPULAR</div>
+                    <div class="plan-name">Monthly</div>
+                    <div class="plan-price">₦10,000</div>
+                    <div class="plan-period">per 1 months</div>
+                    <ul class="plan-features">
+                        <li>All Monthly features</li>
+                        <li>Personalized coaching</li>
+                        <li>Nutrition guidance</li>
+                        <li>Priority support</li>
+                        <li>Exclusive content</li>
+                        <li>Save 20%</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="initiateSignup('quarterly')">Choose Monthly</button>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-name">Annual</div>
+                    <div class="plan-price">₦110,000</div>
+                    <div class="plan-period">per year</div>
+                    <ul class="plan-features">
+                        <li>All Quarterly features</li>
+                        <li>1-on-1 coaching sessions</li>
+                        <li>Custom meal plans</li>
+                        <li>Lifetime access to courses</li>
+                        <li>VIP community access</li>
+                        <li>Save 40%</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="initiateSignup('annual')">Choose Annual</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MY PROGRAMME PAGE -->
+        <div class="page" id="my-programme">
+            <div class="page-header">
+                <h1>My Programme</h1>
+                <p>Track your progress and achievements</p>
+            </div>
+
+            <!-- Contact Coach Button -->
+            <div style="margin-bottom: 2rem; text-align: center;">
+                <button class="btn btn-primary" onclick="contactCoach()"
+                    style="max-width: 400px; width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1rem; padding: 1rem 2rem;">
+                    💬 Contact a Coach
+                </button>
+            </div>
+
+            <!-- Current Class View -->
+            <div class="current-class-container">
+                <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Current Class</h2>
+                <div id="currentClassDisplay">
+                    <p style="color: #7f8c8d; text-align: center; padding: 2rem;">No class selected. Select a class from
+                        Daily Exercise or Self Defense page.</p>
+                </div>
+            </div>
+
+            <!-- Progress Container -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <h2>Your Performance</h2>
+                    <select id="classSelector" onchange="updateProgress()">
+                        <option value="chacha">ChaCha Cardio</option>
+                        <option value="pompies">Pompies Power</option>
+                        <option value="chauffling">Chauffling Stretch</option>
+                        <option value="squatting">Squatting Strong</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-bottom: 1rem; color: #2c3e50;">Overall Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress" style="width: 75%">75%</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">32</div>
+                        <div class="stat-label">Classes Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">18h</div>
+                        <div class="stat-label">Total Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="caloriesBurned">4,200</div>
+                        <div class="stat-label">Calories Burned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI & BMR Calculator - Mobile Responsive -->
+            <div class="calculator-container">
+                <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">BMI & BMR Calculator</h2>
+                <div class="calculator-grid">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="weight" placeholder="70" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="height" placeholder="170" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" id="age" placeholder="25" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Activity Level</label>
+                            <select id="activityLevel">
+                                <option value="1.2">Sedentary (little or no exercise)</option>
+                                <option value="1.375">Lightly active (exercise 1-3 days/week)</option>
+                                <option value="1.55" selected>Moderately active (exercise 3-5 days/week)</option>
+                                <option value="1.725">Very active (exercise 6-7 days/week)</option>
+                                <option value="1.9">Extremely active (intense exercise daily)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="calculateBMI()">Calculate</button>
+                    </div>
+
+                    <div style="display: grid; gap: 1rem;">
+                        <div class="result-box">
+                            <h3>BMI (Body Mass Index)</h3>
+                            <div class="result-value" id="bmiResult">--</div>
+                            <div class="result-label" id="bmiCategory">Enter your details</div>
+                        </div>
+                        <div class="result-box">
+                            <h3>BMR (Basal Metabolic Rate)</h3>
+                            <div class="result-value" id="bmrResult">--</div>
+                            <div class="result-label">Calories/day to maintain weight</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAILY EXERCISE PAGE -->
+        <div class="page" id="daily-exercise">
+            <div class="page-header">
+                <h1>Daily Exercise Classes</h1>
+                <p>Choose your age group and start your fitness journey</p>
+            </div>
+
+            <div class="age-selection">
+                <button class="age-btn active" onclick="filterByAge('all', 'exercise', event)">All Ages</button>
+                <button class="age-btn" onclick="filterByAge('juvenile', 'exercise', event)">Juvenile (8-17)</button>
+                <button class="age-btn" onclick="filterByAge('adult', 'exercise', event)">Adults (18+)</button>
+            </div>
+
+            <div class="classes-grid" id="exerciseClasses">
+                <!-- ChaCha Cardio -->
+                <div class="class-card" data-age="adult" data-class-id="chacha">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop"
+                            alt="ChaCha Cardio">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">ChaCha Cardio</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 30 mins</span>
+                            <span>🔥 High Intensity</span>
+                            <span>👥 Adults</span>
+                        </div>
+                        <p class="class-description">High-energy cardio workout that combines dance moves with strength
+                            training for maximum calorie burn.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Burns 400-600 calories per session</li>
+                                <li>Improves cardiovascular endurance</li>
+                                <li>Enhances coordination and rhythm</li>
+                                <li>Tones full body muscles</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('chacha', 'ChaCha Cardio', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <!-- Pompies Power -->
+                <div class="class-card" data-age="juvenile" data-class-id="pompies">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop"
+                            alt="Pompies Power">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Pompies Power</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 25 mins</span>
+                            <span>🔥 Medium Intensity</span>
+                            <span>👥 Juvenile</span>
+                        </div>
+                        <p class="class-description">Fun and energetic workout designed for young athletes to build
+                            strength and confidence.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Builds core strength safely</li>
+                                <li>Improves posture and balance</li>
+                                <li>Boosts self-confidence</li>
+                                <li>Develops discipline and focus</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('pompies', 'Pompies Power', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <!-- Chauffling Stretch -->
+                <div class="class-card" data-age="adult" data-class-id="chauffling">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop"
+                            alt="Chauffling Stretch">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Chauffling Stretch</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 20 mins</span>
+                            <span>🔥 Low Intensity</span>
+                            <span>👥 All Ages</span>
+                        </div>
+                        <p class="class-description">Gentle flexibility workout focusing on deep stretches and mobility
+                            improvement.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Increases flexibility</li>
+                                <li>Reduces muscle tension</li>
+                                <li>Prevents injuries</li>
+                                <li>Improves range of motion</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('chauffling', 'Chauffling Stretch', 'https://assets.mixkit.co/videos/preview/mixkit-woman-stretching-her-body-509.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <!-- Squatting Strong -->
+                <div class="class-card" data-age="adult" data-class-id="squatting">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=400&fit=crop"
+                            alt="Squatting Strong">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Squatting Strong</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 35 mins</span>
+                            <span>🔥 High Intensity</span>
+                            <span>👥 Adults</span>
+                        </div>
+                        <p class="class-description">Lower body focused workout targeting glutes, quads, and hamstrings
+                            for powerful legs.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Builds powerful leg muscles</li>
+                                <li>Strengthens core stability</li>
+                                <li>Improves athletic performance</li>
+                                <li>Boosts metabolism</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('squatting', 'Squatting Strong', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <!-- Flying Pompies -->
+                <div class="class-card" data-age="juvenile" data-class-id="flying">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=600&h=400&fit=crop"
+                            alt="Flying Pompies">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Flying Pompies</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 30 mins</span>
+                            <span>🔥 Medium Intensity</span>
+                            <span>👥 Juvenile</span>
+                        </div>
+                        <p class="class-description">Dynamic plyometric exercises that build explosive power and agility
+                            for young athletes.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Develops explosive power</li>
+                                <li>Improves agility and speed</li>
+                                <li>Builds confidence</li>
+                                <li>Enhances coordination</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('flying', 'Flying Pompies', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Section -->
+            <div class="events-section">
+                <h2>Upcoming Events</h2>
+                <div class="event-card"
+                    onclick="showEventDetail('christmas-challenge', 'Christmas Fitness Challenge', 'Join our special holiday workout challenge! Win exciting prizes and stay fit during the festive season. This high-energy event includes team competitions, individual challenges, and festive fitness fun for the whole family.', '25', 'DEC', 'Online', '6:00 PM')">
+                    <div class="event-date">
+                        <div class="event-day">25</div>
+                        <div class="event-month">DEC</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>Christmas Fitness Challenge</h3>
+                        <p>Join our special holiday workout challenge! Win exciting prizes and stay fit during the
+                            festive season.</p>
+                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Online • 6:00 PM • Click to
+                            view details</p>
+                    </div>
+                </div>
+                <div class="event-card"
+                    onclick="showEventDetail('new-year-kickstart', 'New Year Kickstart Program', 'Start 2025 strong! A special 30-day intensive program for all fitness levels. This comprehensive program includes personalized meal plans, daily workout routines, progress tracking, and weekly coaching calls.', '01', 'JAN', 'Live Stream', '7:00 AM')">
+                    <div class="event-date">
+                        <div class="event-day">01</div>
+                        <div class="event-month">JAN</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>New Year Kickstart Program</h3>
+                        <p>Start 2025 strong! A special 30-day intensive program for all fitness levels.</p>
+                        <p style="color: #ff6b35; font-weight: 600; margin-top: 0.5rem;">📍 Live Stream • 7:00 AM •
+                            Click to view details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SELF DEFENSE PAGE -->
+        <div class="page" id="self-defense">
+            <div class="page-header">
+                <h1>Self Defense Training</h1>
+                <p>Master practical martial arts techniques for real-world situations</p>
+            </div>
+
+            <div class="age-selection">
+                <button class="age-btn active" onclick="filterByAge('all', 'defense', event)">All Ages</button>
+                <button class="age-btn" onclick="filterByAge('juvenile', 'defense', event)">Juvenile (8-17)</button>
+                <button class="age-btn" onclick="filterByAge('adult', 'defense', event)">Adults (18+)</button>
+            </div>
+
+            <div class="classes-grid" id="defenseClasses">
+                <div class="class-card" data-age="adult">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=400&fit=crop"
+                            alt="Basic Self-Defense">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Basic Self-Defense</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 40 mins</span>
+                            <span>🥋 Beginner</span>
+                            <span>👥 Adults</span>
+                        </div>
+                        <p class="class-description">Learn fundamental self-defense moves including blocks, strikes, and
+                            escape techniques.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Builds confidence and awareness</li>
+                                <li>Practical street defense skills</li>
+                                <li>Improves reflexes</li>
+                                <li>Stress relief through training</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('basic-defense', 'Basic Self-Defense', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-age="juvenile">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">
+                        <img src="https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=600&h=400&fit=crop"
+                            alt="Kids Martial Arts">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Kids Martial Arts</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 30 mins</span>
+                            <span>🥋 Beginner</span>
+                            <span>👥 Juvenile</span>
+                        </div>
+                        <p class="class-description">Age-appropriate martial arts training focusing on discipline,
+                            respect, and basic defense.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Teaches discipline and respect</li>
+                                <li>Builds confidence</li>
+                                <li>Improves focus and concentration</li>
+                                <li>Safe self-defense basics</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('kids-martial-arts', 'Kids Martial Arts', 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-weight-lifting-23.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-age="adult">
+                    <div class="video-thumbnail"
+                        onclick="playVideo('https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&h=400&fit=crop"
+                            alt="Advanced Combat">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="class-info">
+                        <h3 class="class-title">Advanced Combat</h3>
+                        <div class="class-meta">
+                            <span>⏱️ 50 mins</span>
+                            <span>🥋 Advanced</span>
+                            <span>👥 Adults</span>
+                        </div>
+                        <p class="class-description">Advanced martial arts techniques including ground defense and
+                            multiple attacker scenarios.</p>
+                        <div class="benefits-list">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Master complex defense techniques</li>
+                                <li>Real-world scenario training</li>
+                                <li>Peak physical conditioning</li>
+                                <li>Mental toughness development</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary"
+                            onclick="selectClass('advanced-combat', 'Advanced Combat', 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4')">Select
+                            This Class</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MARKET PLACE PAGE -->
+        <div class="page" id="marketplace">
+            <div class="page-header">
+                <h1>Market Place</h1>
+                <p>Discover fitness products and partner offers</p>
+            </div>
+
+            <div class="marketplace-grid">
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop"
+                        alt="Gym Equipment" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Premium Gym Equipment</h3>
+                        <p class="ad-description">Get 20% off on all dumbbells, resistance bands, and yoga mats. Limited
+                            time offer!</p>
+                        <button class="btn btn-primary">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop"
+                        alt="Nutrition" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Healthy Meal Plans</h3>
+                        <p class="ad-description">Customized nutrition plans delivered to your door. Start eating
+                            healthy today!</p>
+                        <button class="btn btn-primary">Learn More</button>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop"
+                        alt="Supplements" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Sports Supplements</h3>
+                        <p class="ad-description">Premium protein powders and vitamins. Member exclusive 15% discount.
+                        </p>
+                        <button class="btn btn-primary">View Products</button>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1556906781-9cba4a0f1a?w=600&h=400&fit=crop"
+                        alt="Activewear" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Athletic Wear</h3>
+                        <p class="ad-description">Comfortable and stylish workout clothes. New collection just arrived!
+                        </p>
+                        <button class="btn btn-primary">Browse Collection</button>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&h=400&fit=crop"
+                        alt="Wearables" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Fitness Trackers</h3>
+                        <p class="ad-description">Track your workouts with the latest smartwatches. Special pricing for
+                            members.</p>
+                        <button class="btn btn-primary">Explore Devices</button>
+                    </div>
+                </div>
+
+                <div class="ad-card">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop"
+                        alt="Wellness" class="ad-image">
+                    <div class="ad-content">
+                        <h3 class="ad-title">Wellness Programs</h3>
+                        <p class="ad-description">Meditation, yoga, and mindfulness courses. Holistic health approach.
+                        </p>
+                        <button class="btn btn-primary">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG PAGE -->
+        <div class="page" id="blog">
+            <div class="page-header">
+                <h1>Fitness Blog</h1>
+                <p>Share your fitness journey and tips</p>
+            </div>
+
+            <div class="blog-header">
+                <h2 style="color: #2c3e50;">All Posts</h2>
+                <button class="btn btn-primary" onclick="showBlogEditor()">✍️ Create New Post</button>
+            </div>
+
+            <div id="blogPostsList" class="blog-posts-grid">
+                <!-- Blog posts will be loaded here -->
+            </div>
+        </div>
+
+        <!-- BLOG EDITOR PAGE -->
+        <div class="page" id="blog-editor">
+            <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
+
+            <div class="blog-editor">
+                <h2 style="margin-bottom: 1.5rem; color: #2c3e50;" id="editorTitle">Create New Post</h2>
+
+                <div class="editor-field">
+                    <label>Post Title *</label>
+                    <input type="text" id="postTitle" placeholder="Enter your post title">
+                </div>
+
+                <div class="editor-field">
+                    <label>Header Media Type</label>
+                    <div class="media-type-selector">
+                        <button type="button" class="media-type-btn active" onclick="selectMediaType('image')">🖼️
+                            Image</button>
+                        <button type="button" class="media-type-btn" onclick="selectMediaType('video')">🎥
+                            Video</button>
+                        <button type="button" class="media-type-btn" onclick="selectMediaType('upload')">📤
+                            Upload</button>
+                        <button type="button" class="media-type-btn" onclick="selectMediaType('none')">❌ None</button>
+                    </div>
+                </div>
+
+                <div class="editor-field" id="mediaUrlField">
+                    <label>Image URL</label>
+                    <input type="url" id="postMediaUrl" placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="editor-field" id="mediaUploadField" style="display: none;">
+                    <label>Upload Media File</label>
+                    <input type="file" id="postMediaFile" accept="image/*,video/*">
+                </div>
+
+                <div class="editor-field">
+                    <label>Content *</label>
+                    <div class="editor-toolbar">
+                        <button type="button" class="toolbar-btn"
+                            onclick="formatText('bold')"><strong>B</strong></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('italic')"><em>I</em></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('underline')"><u>U</u></button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('insertUnorderedList')">•
+                            List</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('insertOrderedList')">1.
+                            List</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'h2')">H2</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'h3')">H3</button>
+                        <button type="button" class="toolbar-btn" onclick="formatText('formatBlock', 'p')">P</button>
+                    </div>
+                    <div id="postContent" class="editor-content" contenteditable="true">
+                        Start writing your post here...
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="savePost()">💾 Save Post</button>
+                    <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG POST VIEW PAGE -->
+        <div class="page" id="blog-post-view">
+            <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
+
+            <div class="blog-post-view" id="blogPostViewContent">
+                <!-- Post content will be loaded here -->
+            </div>
+
+            <div class="blog-navigation">
+                <button class="nav-btn" id="prevPostBtn" onclick="navigatePost('prev')">
+                    ← Previous Post
+                </button>
+                <button class="nav-btn" id="nextPostBtn" onclick="navigatePost('next')">
+                    Next Post →
+                </button>
+            </div>
+        </div>
+
+        <!-- EVENT DETAIL PAGE -->
+        <div class="page" id="event-detail">
+            <button class="back-btn" onclick="showPage('daily-exercise')">← Back to Classes</button>
+
+            <div class="event-detail-container">
+                <div class="event-video-container">
+                    <video id="eventVideo" controls>
+                        <source
+                            src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-70.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="event-info">
+                    <h1 id="eventTitle" style="color: #2c3e50; margin-bottom: 1rem;">Event Title</h1>
+                    <p id="eventDescription" style="color: #666; line-height: 1.8; margin-bottom: 1.5rem;"></p>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px;">
+                        <h3 style="color: #2c3e50; margin-bottom: 1rem;">Event Details</h3>
+                        <p id="eventDate" style="color: #666; margin-bottom: 0.5rem;"></p>
+                        <p id="eventLocation" style="color: #666; margin-bottom: 0.5rem;"></p>
+                        <p id="eventTime" style="color: #666;"></p>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 2rem;"
+                        onclick="alert('Event registration successful! We will send you confirmation details via email.')">Register
+                        for Event</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- USER PROFILE PAGE -->
+        <div class="page" id="profile">
+            <div class="page-header">
+                <h1>User Profile</h1>
+                <p>Manage your account and preferences</p>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">JD</div>
+                    <div class="profile-info">
+                        <h2 id="profileName">John Doe</h2>
+                        <p id="profileEmail">john.doe@email.com</p>
+                        <p style="color: #ff6b35; font-weight: 600;">Monthly Plan • Active</p>
+                    </div>
+                </div>
+
+                <form class="profile-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="editName" value="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="editUsername" value="johndoe123">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="editEmail" value="john.doe@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="editPhone" value="+234 801 234 5678">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" id="editCountry" value="Nigeria">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="close-modal" onclick="closeVideoModal()">×</button>
+            <video id="modalVideo" controls>
+                <source id="modalVideoSource" src="" type="video/mp4">
+            </video>
+            <div class="cast-buttons">
+                <button class="cast-btn" id="wifiCastBtn" onclick="castToDevice('wifi')">
+                    📡 Cast via WiFi
+                </button>
+                <button class="cast-btn" id="bluetoothCastBtn" onclick="castToDevice('bluetooth')">
+                    🔵 Cast via Bluetooth
+                </button>
+                <button class="cast-btn" id="usbCastBtn" onclick="castToDevice('usb')">
+                    🔌 Connect USB
+                </button>
+            </div>
+            <div class="cast-status" id="castStatus">
+                <p id="castStatusText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="./assets/app.js"></script>
+</body>
+
+</html>
